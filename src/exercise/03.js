@@ -13,7 +13,7 @@ function Name({name, onNameChange}) {
 }
 
 // 🐨 accept `animal` and `onAnimalChange` props to this component
-function FavoriteAnimal() {
+function FavoriteAnimal(animal, onAnimalChange) {
   // 💣 delete this, it's now managed by the App
   const [animal, setAnimal] = React.useState('')
   return (
