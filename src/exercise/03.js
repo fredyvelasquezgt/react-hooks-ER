@@ -12,14 +12,14 @@ function Name({name, onNameChange}) {
   )
 }
 
-function FavoriteAnimal(animal, onAnimalChange) {
+function FavoriteAnimal({animal, onAnimalChange}) {
   return (
     <div>
       <label htmlFor="animal">Favorite Animal: </label>
       <input
         id="animal"
         value={animal}
-        onChange={event => setAnimal(event.target.value)}
+        onChange={onAnimalChange}
       />
     </div>
   )
@@ -37,10 +37,8 @@ function App() {
   return (
     <form>
       <Name name={name} onNameChange={event => setName(event.target.value)} />
-      {/* 🐨 pass the animal and onAnimalChange prop here (similar to the Name component above) */}
-      <FavoriteAnimal />
-      {/* 🐨 pass the animal prop here */}
-      <Display name={name} />
+      <FavoriteAnimal animal={animal} onAnimalChange={event => setAnimal(event.target.value)} />
+      <Display name={name}  animal={animal}/>
     </form>
   )
 }
