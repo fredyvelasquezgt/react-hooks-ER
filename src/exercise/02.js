@@ -1,28 +1,27 @@
 // useEffect: persistent state
-// http://localhost:3000/isolated/exercise/02.js
+// 💯 custom hook
+// http://localhost:3000/isolated/final/02.extra-3.js
 
 import * as React from 'react'
 
-function syncLocalStorageWithState(initialName) {
-  const [name, setName] = React.useState(() => window.localStorage.getItem('name') || initialName)
+function useLocalStorageState(key, defaultValue = '') {
+  const [state, setState] = React.useState(
+    () => window.localStorage.getItem(key) ?? defaultValue,
+  )
 
-  //side effect code that we want to render
-  //sync my app to the localStorage
   React.useEffect(() => {
-    window.localStorage.setItem('name', name) //name is a value that we want to store in localStorage
-  }, [name]) //i can include all the thins that can change over time
+    window.localStorage.setItem(key, state)
+  }, [key, state])
 
-  return [name, setName]
+  return [state, setState]
 }
 
 function Greeting({initialName = ''}) {
-
-  const [name, setName] = syncLocalStorageWithState(initialName)
+  const [name, setName] = useLocalStorageState('name', initialName)
 
   function handleChange(event) {
     setName(event.target.value)
   }
-
 
   return (
     <div>
