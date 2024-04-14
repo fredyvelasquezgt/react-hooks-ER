@@ -4,15 +4,20 @@
 import * as React from 'react'
 
 function Greeting({initialName = ''}) {
-  const [name, setName] = React.useState(initialName)
 
+  
+
+  const [name, setName] = React.useState(() => window.localStorage.getItem('name') || initialName)
+
+
+
+  //side effect code that we want to render
+  //sync my app to the localStorage
   React.useEffect(() => {
     window.localStorage.setItem('name', name); //name is a value that we want to store in localStorage
   })
 
-  // 🐨 Here's where you'll use `React.useEffect`.
-  // The callback should set the `name` in localStorage.
-  // 💰 window.localStorage.setItem('name', name)
+ 
 
   function handleChange(event) {
     setName(event.target.value)
