@@ -3,25 +3,27 @@
 
 import * as React from 'react'
 
-function Greeting({initialName = ''}) {
-
-  
-
+function syncLocalStorageWithState(initialName) {
   const [name, setName] = React.useState(() => window.localStorage.getItem('name') || initialName)
-
-
 
   //side effect code that we want to render
   //sync my app to the localStorage
   React.useEffect(() => {
-    window.localStorage.setItem('name', name); //name is a value that we want to store in localStorage
-  })
+    window.localStorage.setItem('name', name) //name is a value that we want to store in localStorage
+  }, [name]) //i can include all the thins that can change over time
 
- 
+  return [name, setName]
+}
+
+function Greeting({initialName = ''}) {
+
+  const [name, setName] = syncLocalStorageWithState(initialName)
 
   function handleChange(event) {
     setName(event.target.value)
   }
+
+
   return (
     <div>
       <form>
