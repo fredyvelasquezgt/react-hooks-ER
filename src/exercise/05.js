@@ -7,7 +7,7 @@ import VanillaTilt from 'vanilla-tilt'
 
 function Tilt({children}) {
 
-  React.useRef()
+  const tiltRef = React.useRef()
 
   React.useEffect(() => {
     const tiltNode = tiltRef.current
@@ -39,7 +39,7 @@ function Tilt({children}) {
 
   // 🐨 add the `ref` prop to the `tilt-root` div here:
   return (
-    <div className="tilt-root">
+    <div ref={tiltRef} className="tilt-root">
       <div className="tilt-child">{children}</div>
     </div>
   )
