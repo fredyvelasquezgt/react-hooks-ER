@@ -1,31 +1,21 @@
 // useState: tic tac toe
-// http://localhost:3000/isolated/exercise/04.js
+// http://localhost:3000/isolated/final/04.js
 
 import * as React from 'react'
-import  {useLocalStorageState}from '../utils'
 
 function Board() {
-  // 🐨 squares is the state for this component. Add useState for squares
   const [squares, setSquares] = React.useState(Array(9).fill(null))
 
-  React.useEffect(() => {
-    window.localStorage.setItem('squares', JSON.stringify(squares))
-  }, [squares])
-
-  // 🐨 We'll need the following bits of derived state:
   const nextValue = calculateNextValue(squares)
   const winner = calculateWinner(squares)
   const status = calculateStatus(winner, squares, nextValue)
- 
 
-  // This is the function your square click handler will call. `square` should
-  // be an index. So if they click the center square, this will be `4`.
   function selectSquare(square) {
-    if(winner || square) {
+    if (winner || squares[square]) {
       return
-    } 
+    }
     const squaresCopy = [...squares]
-    squaresCopy[square] = nextValue;
+    squaresCopy[square] = nextValue
     setSquares(squaresCopy)
   }
 
@@ -43,7 +33,6 @@ function Board() {
 
   return (
     <div>
-      {/* 🐨 put the status in the div below */}
       <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
@@ -77,7 +66,6 @@ function Game() {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
   return winner
     ? `Winner: ${winner}`
@@ -86,12 +74,10 @@ function calculateStatus(winner, squares, nextValue) {
     : `Next player: ${nextValue}`
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateNextValue(squares) {
   return squares.filter(Boolean).length % 2 === 0 ? 'X' : 'O'
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
