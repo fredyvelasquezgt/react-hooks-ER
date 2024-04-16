@@ -16,14 +16,16 @@ function Board() {
   // This is the function your square click handler will call. `square` should
   // be an index. So if they click the center square, this will be `4`.
   function selectSquare(square) {
+    if(winner || square) {
+      return
+    } 
     const squaresCopy = [...squares]
-    squaresCopy[squares] = nextValue;
+    squaresCopy[square] = nextValue;
     setSquares(squaresCopy)
   }
 
   function restart() {
-    // 🐨 reset the squares
-    // 💰 `Array(9).fill(null)` will do it!
+    setSquares(Array(9).fill(null))
   }
 
   function renderSquare(i) {
