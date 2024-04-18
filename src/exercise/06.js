@@ -14,7 +14,7 @@ function PokemonInfo({pokemonName}) {
       pokemonData => setPokemon(pokemonName)
     )
 
-  }, [pokemon])
+  }, [pokemonName])
 
 
 
@@ -26,10 +26,11 @@ function PokemonInfo({pokemonName}) {
       return 'Submit a pokemon'
     } else if(!pokemon) {
       <PokemonInfoFallback name={pokemonName} />
+    } else {
+      <PokemonDataView pokemon={pokemon} />
+
     }
 
-    if(pokemonName)
-    <PokemonDataView pokemon={pokemon} />
   
 }
 
