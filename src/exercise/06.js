@@ -9,28 +9,25 @@ function PokemonInfo({pokemonName}) {
   const [pokemon, setPokemon] = React.useState(null)
 
   React.useEffect(() => {
-    setPokemon(null)
+    if(!pokemonName) {
+      return
+    }
     fetchPokemon(pokemonName).then(
-      pokemonData => setPokemon(pokemonName)
+      pokemonData => { setPokemon(pokemonData) }
     )
 
   }, [pokemonName])
 
 
 
-  // 🐨 return the following things based on the `pokemon` state and `pokemonName` prop:
-  //   1. no pokemonName: 'Submit a pokemon'
-  //   2. pokemonName but no pokemon: 
-
     if(!pokemonName) {
       return 'Submit a pokemon'
     } else if(!pokemon) {
-      <PokemonInfoFallback name={pokemonName} />
+      return <PokemonInfoFallback name={pokemonName} />
     } else {
-      <PokemonDataView pokemon={pokemon} />
+      return <PokemonDataView pokemon={pokemon} />
 
     }
-
   
 }
 
