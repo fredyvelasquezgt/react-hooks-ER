@@ -21,9 +21,10 @@ function PokemonInfo({pokemonName}) {
   // 🐨 return the following things based on the `pokemon` state and `pokemonName` prop:
   //   1. no pokemonName: 'Submit a pokemon'
   //   2. pokemonName but no pokemon: <PokemonInfoFallback name={pokemonName} />
-  //   3. pokemon: <PokemonDataView pokemon={pokemon} />
 
-  return 'TODO'
+  return (
+    <PokemonDataView pokemon={pokemon} />
+  )
 }
 
 function App() {
