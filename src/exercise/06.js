@@ -9,12 +9,12 @@ function PokemonInfo({pokemonName}) {
   const [pokemon, setPokemon] = React.useState(null)
 
   React.useEffect(() => {
-
+    setPokemon("")
+    fetchPokemon(pokemonName)
 
   }, [pokemon])
 
-  // 🐨 use React.useEffect where the callback should be called whenever the
-  // pokemon name changes.
+
   // 💰 if the pokemonName is falsy (an empty string) then don't bother making the request (exit early).
   // 🐨 before calling `fetchPokemon`, clear the current pokemon state by setting it to null.
   // (This is to enable the loading state when switching between different pokemon.)
