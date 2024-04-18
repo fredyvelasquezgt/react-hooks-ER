@@ -9,6 +9,7 @@ function PokemonInfo({pokemonName}) {
   const [pokemon, setPokemon] = React.useState(null)
 
   React.useEffect(() => {
+    setPokemon(null)
     if(!pokemonName) {
       return
     }
