@@ -22,9 +22,11 @@ function PokemonInfo({pokemonName}) {
   //   1. no pokemonName: 'Submit a pokemon'
   //   2. pokemonName but no pokemon: <PokemonInfoFallback name={pokemonName} />
 
-  return (
+    if(!pokemonName) {
+      return 'Submit a pokemon'
+    }
     <PokemonDataView pokemon={pokemon} />
-  )
+  
 }
 
 function App() {
