@@ -7,6 +7,7 @@ import {PokemonForm} from '../pokemon'
 
 function PokemonInfo({pokemonName}) {
   const [pokemon, setPokemon] = React.useState(null)
+  const [error, setError] = React.useState(null)
 
   React.useEffect(() => {
     setPokemon(null)
@@ -14,10 +15,11 @@ function PokemonInfo({pokemonName}) {
       return
     }
     fetchPokemon(pokemonName).then(
-      pokemonData => { setPokemon(pokemonData) }
+      pokemonData => { setPokemon(pokemonData),
+      error => setError(error) }
     )
 
-  }, [pokemonName])
+  }, [pokemonName]) //listen to this change
 
 
 
@@ -34,7 +36,6 @@ function PokemonInfo({pokemonName}) {
 
 function App() {
   const [pokemonName, setPokemonName] = React.useState('')
-
   function handleSubmit(newPokemonName) {
     setPokemonName(newPokemonName)
   }
