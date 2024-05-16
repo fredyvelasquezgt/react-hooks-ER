@@ -21,6 +21,15 @@ function PokemonInfo({pokemonName}) {
 
   }, [pokemonName]) //listen to this change
 
+  if(error) {
+    return (
+      <div>
+        There was an error: {''}
+        <pre style={{whiteSpace: 'normal'}}> {error.message} </pre>
+      </div>
+    )
+  }
+
 
 
     if(!pokemonName) {
