@@ -1,50 +1,55 @@
 // useEffect: HTTP requests
-// http://localhost:3000/isolated/exercise/06.js
+// 💯 handle errors
+// http://localhost:3000/isolated/final/06.extra-1.js
 
 import * as React from 'react'
-import {fetchPokemon, PokemonInfoFallback, PokemonDataView} from '../pokemon';
-import {PokemonForm} from '../pokemon'
+import {
+  fetchPokemon,
+  PokemonInfoFallback,
+  PokemonForm,
+  PokemonDataView,
+} from '../pokemon'
 
 function PokemonInfo({pokemonName}) {
   const [pokemon, setPokemon] = React.useState(null)
   const [error, setError] = React.useState(null)
+  const [status, setStatus] = React.useState('idle')
 
   React.useEffect(() => {
-    setPokemon(null)
-    if(!pokemonName) {
+    if (!pokemonName) {
       return
     }
+  
+    setStatus('pending')
     fetchPokemon(pokemonName).then(
-      pokemonData => { setPokemon(pokemonData),
-      error => setError(error) }
+      pokemon => {
+        setPokemon(pokemon)
+        setStatus('resolved')
+      },
+      error => setError(error),
     )
+  }, [pokemonName])
 
-  }, [pokemonName]) //listen to this change
-
-  if(error) {
+  if(status === 'idle') {
+    return 'Submit a Pokemon'
+  } else if (status === 'pending') {
+    return <PokemonInfoFallback name={pokemonName} />
+  } else if (status === 'rejected') {
     return (
-      <div>
-        There was an error: {''}
-        <pre style={{whiteSpace: 'normal'}}> {error.message} </pre>
-      </div>
-    )
+      <div role="alert">
+        There was an error:{' '}
+        <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
+      </div> )
+  } else if (status == 'resolved') {
+    return <PokemonDataView pokemon={pokemon} />
   }
 
-
-
-    if(!pokemonName) {
-      return 'Submit a pokemon'
-    } else if(!pokemon) {
-      return <PokemonInfoFallback name={pokemonName} />
-    } else {
-      return <PokemonDataView pokemon={pokemon} />
-
-    }
-  
+  throw new Error('this should be impossible')
 }
 
 function App() {
   const [pokemonName, setPokemonName] = React.useState('')
+
   function handleSubmit(newPokemonName) {
     setPokemonName(newPokemonName)
   }
