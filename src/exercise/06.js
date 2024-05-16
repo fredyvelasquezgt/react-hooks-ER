@@ -10,21 +10,21 @@ import {
   PokemonDataView,
 } from '../pokemon'
 
-class ErrorBoundary extends React.Component {
-  state = {error: null}
-  static getDerivedStateFromError(error) {
-    return {error}
-  }
-  render() {
-    const {error} = this.state;
-    if(error) {
-      return (
-        <this.props.FallbackComponent error={error} />
-      ) 
-    }
-    return this.props.children;
-  }
-}
+// class ErrorBoundary extends React.Component {
+//   state = {error: null}
+//   static getDerivedStateFromError(error) {
+//     return {error}
+//   }
+//   render() {
+//     const {error} = this.state;
+//     if(error) {
+//       return (
+//         <this.props.FallbackComponent error={error} />
+//       ) 
+//     }
+//     return this.props.children;
+//   }
+// }
 
 function ErrorFallback({error}) {
   return (
@@ -87,7 +87,7 @@ function App() {
       <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
       <hr />
       <div className="pokemon-info">
-      <ErrorBoundary FallbackComponent={ErrorFallback} >
+      <ErrorBoundary key={pokemonName} FallbackComponent={ErrorFallback} >
         <PokemonInfo pokemonName={pokemonName} />
         </ErrorBoundary>
 
