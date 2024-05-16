@@ -19,6 +19,7 @@ function PokemonInfo({pokemonName}) {
   })
 
   const {status, pokemon, error} = state;
+  
 
   React.useEffect(() => {
     if (!pokemonName) {
@@ -31,7 +32,7 @@ function PokemonInfo({pokemonName}) {
         setState({pokemon, status: 'resolved'})
       },
       error => {      
-        setState({pokemon, status: 'rejected'})
+        setState({error, status: 'rejected'})
       } 
     )
   }, [pokemonName])
